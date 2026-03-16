@@ -29,7 +29,7 @@ export default function AskRecallio({ userId }: AskRecallioProps) {
 
   const handleSendMessage = async (question: string) => {
     if (!userId) {
-      alert("Bhai, login toh kar lo pehle!");
+      alert("Please login first to ask Recallio.");
       return;
     }
 
@@ -38,7 +38,7 @@ export default function AskRecallio({ userId }: AskRecallioProps) {
     setIsTyping(true)
 
     try {
-      const res = await fetch("http://localhost:8000/chat/ask", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/chat/ask`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
@@ -61,7 +61,7 @@ export default function AskRecallio({ userId }: AskRecallioProps) {
       console.error("Recallio Error:", error)
       setMessages((prev) => [...prev, { 
         role: "assistant", 
-        content: "Bhai, backend check karo, lagta hai system down hai ya data ingest nahi hua." 
+        content: "Backend ingestion problem." 
       }])
     } finally {
       setIsTyping(false)

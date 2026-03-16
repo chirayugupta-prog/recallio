@@ -18,13 +18,16 @@ export default function SyncButton({ session, userId }: { session: any; userId: 
         return;
       }
 
-      const res = await fetch(`http://localhost:8000/gmail/ingest?user_id=${userId}`, {
-        method: "GET",
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json"
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/gmail/ingest?user_id=${userId}`,
+        {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
         }
-      });
+      );
 
       if (!res.ok) {
         const errData = await res.json().catch(() => ({ detail: "Server Error" }));
@@ -47,7 +50,6 @@ export default function SyncButton({ session, userId }: { session: any; userId: 
 
   return (
     <div className="flex flex-col items-end gap-2 group">
-      {/* Last Synced Info */}
       {lastSynced && !status && (
         <span className="text-[9px] text-gray-500 font-mono tracking-tighter opacity-0 group-hover:opacity-100 transition-opacity">
           LAST INDEXED: {lastSynced}
@@ -81,7 +83,6 @@ export default function SyncButton({ session, userId }: { session: any; userId: 
           )}
         </div>
 
-        {/* Shine effect animation */}
         {!loading && (
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
         )}

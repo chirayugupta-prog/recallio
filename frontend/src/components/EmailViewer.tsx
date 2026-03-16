@@ -62,7 +62,7 @@ export default function EmailViewer({ email, close }: any) {
         return
       }
 
-      const res = await fetch(`http://localhost:8000/gmail/email/${email.source_id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/gmail/email/${email.source_id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`)

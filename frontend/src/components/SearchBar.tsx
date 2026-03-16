@@ -16,7 +16,7 @@ export default function SearchBar({ setResults, userId }: any) {
     setLoading(true)
     try {
       const res = await fetch(
-        `http://localhost:8000/search?query=${encodeURIComponent(query)}&user_id=${userId}`
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/search?query=${encodeURIComponent(query)}&user_id=${userId}`
       )
 
       if (!res.ok) throw new Error("Search failed");
