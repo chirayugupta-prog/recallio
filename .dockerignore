@@ -1,6 +1,0 @@
-frontend/
-backend/venv/
-backend/__pycache__/
-.git/
-.next/
-node_modules/
